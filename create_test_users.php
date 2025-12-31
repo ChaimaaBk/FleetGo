@@ -65,5 +65,9 @@ if ($result_admin || $result_user) {
     echo "<strong>Les utilisateurs de test existent déjà dans la base de données.</strong><br>";
 }
 
+<<<<<<< HEAD
 echo "<a href='views/login.php'>Aller à la page de connexion</a>";
+=======
+echo "<a href='login.php'>Aller à la page de connexion</a>";
+>>>>>>> 373bad25aef59d831249af58ae3b8b72d0535032
 ?>

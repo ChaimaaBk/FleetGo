@@ -27,7 +27,7 @@
             <li><a href="">Ressources</a></li>
             <li><a href="">Assistance</a></li>
         </ul>
-        <button class="login"><a href="./views/login.php"><strong>Log In</strong></a></button>
+        <button class="login"><a href="login.php"><strong>Log In</strong></a></button>
     </nav>
 
     <!-------------Header----------------->
