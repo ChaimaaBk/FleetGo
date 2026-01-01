@@ -94,7 +94,7 @@
                     <div class="divider">OR</div>
 
                     <div class="driver-link">
-                        Vous êtes chauffeur? <a href="./chauffeurs/loginDriver.php">Go to Driver Portal</a>
+                        Vous êtes chauffeur? <a href="loginUser.php">Go to Driver Portal</a>
                     </div>
                 </form>
 
