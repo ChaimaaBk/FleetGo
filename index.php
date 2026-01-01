@@ -1,5 +1,5 @@
 <!DOCTYPE html5>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,10 +22,10 @@
 
         <!-------------Navbar List----------------->
         <ul>
-            <li><a href="">Fonctionnalités</a></li>
-            <li><a href="">Tarifs</a></li>
-            <li><a href="">Ressources</a></li>
-            <li><a href="">Assistance</a></li>
+            <li><a href="">Features</a></li>
+            <li><a href="">Pricing</a></li>
+            <li><a href="">Resources</a></li>
+            <li><a href="">Support</a></li>
         </ul>
         <button class="login"><a href="./views/auth/loginAdmin.php"><strong>Log In</strong></a></button>
     </nav>
@@ -34,13 +34,13 @@
     <header>
         <section class="contenue">
             <div class="sous-contenue">
-                <h1>Optimisez vos opérations de flotte avec <span>Précision</span></h1>
+                <h1>Optimize your fleet operations with <span>Precision</span></h1>
                 <p>
-                    La solution tout-en-un pour la gestion des conducteurs, de la maintenance, du carburant et des trajets. Réduisez les coûts, améliorez la sécurité et augmentez l'efficacité dès aujourd'hui
+                    The all-in-one solution for driver management, maintenance, fuel, and trips. Reduce costs, improve safety, and increase efficiency today
                 </p>
                 
                 <div class="dashbord-btns">
-                    <button class="btn-primary"><a href="views/auth/loginAdmin.php">Accéder au tableau de bord</a></button>
+                    <button class="btn-primary"><a href="views/auth/loginAdmin.php">Access Dashboard</a></button>
                 </div>
                 
                 <div class="trusted">
@@ -49,7 +49,7 @@
                         <img src="./imgs/avatar2.png" alt="" id="avatar2"></img>
                         <img src="./imgs/avatar3.png" alt="" id="avatar3"></img>
                     </div>
-                    <span class="trusted-text">Approuvé par plus de 2 000 gestionnaires logistiques</span>
+                    <span class="trusted-text">Trusted by +2,000 logistics managers</span>
                 </div>
             </div>
             <div class="image-section">
@@ -87,48 +87,36 @@
     <!-------------Capabilities----------------->
     <section class="capabilities">
         <div class="cap-title">
-            <h1>Fonctionnalités principales</h1>
+            <h1>Core Features</h1>
             <p>
-                Tout ce dont vous avez besoin pour gérer 
-                votre flotte efficacement sur une plateforme 
-                unifiée. Plus de feuilles de calcul ou de 
-                systèmes déconnectés
+                Everything you need to manage your fleet efficiently on a unified platform. No more spreadsheets or disconnected systems
             </p>
         </div>
         <div class="cap-cards">
 
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
-                <div class="title-card">Suivi en temps réel</div>
+                <div class="title-card">Real-time Tracking</div>
                 <div class="p-card">
-                    Surveillez l'emplacement et le statut des 
-                    véhicules en direct sur notre carte interactive. 
-                    Recevez des mises à jour instantanées sur les 
-                    déviations d'itinéraire et les heures d'arrivée prévues.
+                    Monitor vehicle location and status live on our interactive map. Receive instant updates on route deviations and ETAs (Estimated Times of Arrival)
                 </div>
                 <div class="img-card"><img src="./imgs/timeMap.png" alt=""></div>
             </div>
 
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-wrench"></i></div>
-                <div class="title-card">Alertes de maintenance</div>
+                <div class="title-card">Maintenance Alerts</div>
                 <div class="p-card">
-                    Évitez les pannes grâce à des rappels d'entretien 
-                    automatisés basés sur le kilométrage ou les heures 
-                    moteur. Planifiez les réparations sans interrompre 
-                    les opérations.
+                    Prevent breakdowns with automated service reminders based on mileage or engine hours. Schedule repairs without disrupting your operations
                 </div>
                 <div class="img-card"><img src="./imgs/maintenance.png" alt="" style="margin-top:2rem;"></div>
             </div>
 
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <div class="title-card">Analyse des coûts</div>
+                <div class="title-card">Cost Analysis</div>
                 <div class="p-card">
-                    Suivez la consommation de carburant, le comportement 
-                    des conducteurs et les dépenses opérationnelles. 
-                    Utilisez nos outils de reporting puissants pour 
-                    optimiser votre budget.
+                    Track fuel consumption, driver behavior, and operational expenses. Use our powerful reporting tools to optimize your budget
                 </div>
                 <div class="img-card"><img src="./imgs/analyse.png" alt="" style="margin-top:2rem;"></div>
             </div>
@@ -142,8 +130,8 @@
             <div class="grid-item large-card">
                 <img src="./imgs/camion.png" alt="Vue directe">
                 <div class="card-overlay">
-                    <span>Vue de la flotte en direct</span>
-                    <h3>Surveillez vos actifs n'importe où</h3>
+                    <span>Live Fleet View</span>
+                    <h3>Monitor your assets anywhere</h3>
                 </div>
             </div>
 
@@ -173,10 +161,10 @@
             <!-------------Footer List----------------->
             <div class="foot-list">
                 <ul>
-                    <li><a href="">Politique de confidentialité</a></li>
-                    <li><a href="">Conditions d'utilisation</a></li>
-                    <li><a href="">Contactez-nous</a></li>
-                    <li><a href="">Carrières</a></li>
+                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="">Terms of Service</a></li>
+                    <li><a href="">Contact Us</a></li>
+                    <li><a href="">Careers</a></li>
                 </ul>
             </div>
 
