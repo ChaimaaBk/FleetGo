@@ -27,7 +27,7 @@
             <li><a href="">Ressources</a></li>
             <li><a href="">Assistance</a></li>
         </ul>
-        <button class="login"><a href="./views/login.php"><strong>Log In</strong></a></button>
+        <button class="login"><a href="./views/auth/loginAdmin.php"><strong>Log In</strong></a></button>
     </nav>
 
     <!-------------Header----------------->
@@ -40,8 +40,7 @@
                 </p>
                 
                 <div class="dashbord-btns">
-                    <button class="btn-primary">Accéder au tableau de bord</button>
-                    <button class="btn-secondary">Demander une démo</button>
+                    <button class="btn-primary"><a href="views/auth/loginAdmin.php">Accéder au tableau de bord</a></button>
                 </div>
                 
                 <div class="trusted">

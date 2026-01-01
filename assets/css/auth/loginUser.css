@@ -354,22 +354,6 @@ body {
     right: 0;
 }
 
-.signup-link {
-    text-align: center;
-    margin-top: 1.5rem;
-    color: #94a3b8;
-    font-size: 0.875rem;
-}
-
-.signup-link a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.signup-link a:hover {
-    color: #3b82f6;
-}
 
 .admin-link {
     text-align: center;

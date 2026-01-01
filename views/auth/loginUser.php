@@ -112,10 +112,6 @@
 
                     <div class="divider">OR</div>
 
-                    <div class="signup-link">
-                        Don't have an account? <a href="#">Sign up now</a>
-                    </div>
-
                     <div class="admin-link">
                         Administrator? <a href="./loginAdmin.php">Go to Admin Portal</a>
                     </div>
