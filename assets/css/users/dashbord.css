@@ -21,6 +21,7 @@
     --purple: #a855f7;
     --primary: #137fec;
     --white: #ffffff;
+    --bg-white: #ffffff;
 }
 
 body {
@@ -66,190 +67,161 @@ body {
 
 /* Header */
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    white-space: nowrap;
-    border-bottom: 1px solid var(--border);
-    background-color: var(--surface);
-    padding: 0.75rem 1rem;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    padding: 12px 40px;
+    background-color: var(--bg-white);
+    border-bottom: 1px solid var(--border-light);
+    gap: 32px;
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-/* Material Icons */
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    font-size: 24px;
-}
-
-.material-symbols-outlined.fill {
-    font-variation-settings: 'FILL' 1;
-}
-
-/*----------Logo style---------*/
-.logo-container {
-    padding: 24px;
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--primary);
-    border-radius: 8px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
-    box-shadow: 0 4px 12px rgba(19, 127, 236, 0.3);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
 }
 
 .logo-icon .material-symbols-outlined {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .logo-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.logo-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    line-height: 1;
     color: var(--text-primary);
 }
 
-.logo-title span {
+.logo-accent {
     color: var(--primary);
 }
 
-.container {
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
     display: flex;
-    width: 100%;
-    min-height: 100vh;
-}
-
-.header-right {
-    display: flex;
+    align-items: center;
+    gap: 12px;
     flex: 1;
-    align-items: center;
-    justify-content: center;
+    padding-left: 24px;
 }
 
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-link {
+.breadcrumb-link {
     color: var(--text-secondary);
-    font-size: 0.875rem;
-    font-weight: 500;
     text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
     transition: color 0.2s;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.breadcrumb-link:hover {
     color: var(--text-primary);
+}
+
+.breadcrumb-link.breadcrumb-active {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.breadcrumb-separator {
+    color: var(--text-secondary);
+    font-size: 18px;
+    user-select: none;
 }
 
 .header-actions {
     display: flex;
-    gap: 1rem;
-    position: absolute;
-    right: 2rem;
-}
-
-.icon-button {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    height: 2.5rem;
-    width: 2.5rem;
-    background-color: #f3f4f6;
-    color: var(--text-primary);
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    gap: 12px;
+}
+
+.notification-btn {
     position: relative;
-}
-
-.icon-button:hover {
-    background-color: #e5e7eb;
-}
-
-.icon-button .material-symbols-outlined {
-    font-size: 20px;
 }
 
 .notification-badge {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--error);
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
     border-radius: 50%;
-    border: 2px solid var(--surface);
+    border: 2px solid var(--bg-white);
 }
-.user-button {
+
+.profile-button {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    height: 2.5rem;
-    padding: 0 0.75rem;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 0.5rem;
-    border: none;
+    gap: 10px;
+    padding: 6px 12px 6px 6px;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    border-radius: 999px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: transform 0.2s;
 }
 
-.user-button:hover {
-    background-color: var(--primary-hover);
+.profile-button:hover {
+    transform: translateY(-1px);
 }
 
-.user-avatar {
-    width: 1.5rem;
-    height: 1.5rem;
+.profile-name a{
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-secondary);
 }
 
-.avatar-gradient {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+.icon-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-.user-name {
-    font-size: 0.875rem;
-    font-weight: 700;
-    display: none;
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDhwz9BJB4CeVRdjgyMExr1dJLvskv-GBsO2cjaqJazn5JQ5g4ptNOsTD1JDgkzFepsmpQcGFv-CQX_ds_YpTa-hm_ccvlidQxLGGNsurLsZlokx34bggdjHGObj7MaH0dpPmsg6Ss6TJNdQHaTyRO7qrCUQH2n_BvNE_IA1JUs9Qi_SJ-bhvBeIYFIjkihfH_98Z-DyPFNmh11JabPZdL9ByqCVRD7CU8e22_aEq3S-xC32btv6lM0xlAxtjW26EWWzS0Apz8UOw");
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--bg-white);
+    box-shadow: var(--shadow);
 }
-.user-name a{
-    text-decoration: none;
-    color: var(--white)
+
+/* Contenu principal */
+.main-content {
+    flex: 1;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 40px;
 }
 /* Main Content */
 .main-content {
