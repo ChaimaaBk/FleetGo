@@ -10,41 +10,32 @@
 </head>
 <body>
     <div class="root-container">
-        <!-- Top Navigation Bar -->
-        <header class="header">
-            <div class="header-left">
-                <div class="logo-container">
-                    <div class="logo-icon">
-                        <span class="material-symbols-outlined fill">local_shipping</span>
-                    </div>
-                    <div>
-                        <h1 class="logo-title">Fleet<span>Go</span></h1>
-                    </div>
-                <div class="search-container">
-                </div>
+        <!-- Top Navigation -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-icon">
+                <span class="material-symbols-outlined">local_shipping</span>
             </div>
-            <div class="header-right">
-                <nav class="nav-menu">
-                    <a class="nav-link active" href="dashbord.php">Dashboard</a>
-                    <span class="material-symbols-outlined">chevron_right</span>
-                    <a class="nav-link" href="vehicle.php">Vehicle</a>
-                    <span class="material-symbols-outlined">chevron_right</span>
-                    <a class="nav-link" href="maintenance.php">Maintenance</a>
-                </nav>
-                <div class="header-actions">
-                    <button class="icon-button">
-                        <span class="material-symbols-outlined">notifications</span>
-                        <span class="notification-badge"></span>
-                    </button>
-                    <button class="user-button">
-                        <div class="user-avatar">
-                            <div class="avatar-gradient"></div>
-                        </div>
-                        <span class="user-name"><a href="userProfile.php">Alex D.</a></span>
-                    </button>
-                </div>
+            <h2 class="logo-text">Fleet<span class="logo-accent">Go</span></h2>
+        </div>
+        <nav class="breadcrumb-nav">
+            <a href="dashbord.php" class="breadcrumb-link breadcrumb-active">Dashboard</a>
+            <span class="breadcrumb-separator">›</span>
+            <a href="vehicle.php" class="breadcrumb-link">Vehicle</a>
+            <span class="breadcrumb-separator">›</span>
+            <a href="maintenance.php" class="breadcrumb-link">Maintenance</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-button notification-btn">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="notification-badge"></span>
+            </button>
+            <div class="profile-button">
+                <div class="profile-avatar"></div>
+                <span class="profile-name"><a href="userProfile.php">Alex D.</a></span>
             </div>
-        </header>
+        </div>
+    </header>
 
         <div class="main-content">
             <div class="content-wrapper">
