@@ -1,3 +1,12 @@
+<?php
+// Démarrer la session si nécessaire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Inclure le controller pour récupérer les données
+require_once __DIR__ . '/../../controllers/chauffeurControler.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,25 +182,80 @@
                                     </tr>
                                 </thead>
                                 <tbody id="driversTableBody">
-                                    <!-- Table rows will be populated by JavaScript -->
+                                    <?php
+                                    if ($drivers && mysqli_num_rows($drivers) > 0) {
+                                        while ($driver = mysqli_fetch_assoc($drivers)) {
+                                            $id = htmlspecialchars($driver['driver_id'] ?? '');
+                                            $full_name = htmlspecialchars($driver['full_name'] ?? '');
+                                            $email = htmlspecialchars($driver['email'] ?? '');
+                                            $phone = htmlspecialchars($driver['phone_number'] ?? '');
+                                            $life_time = htmlspecialchars($driver['life_time_vihecules'] ?? '0');
+                                            $total_kms = htmlspecialchars($driver['total_kms'] ?? '0');
+                                    ?>
+                                    <tr>
+                                        <td class="checkbox-col">
+                                            <input type="checkbox" class="table-checkbox"/>
+                                        </td>
+                                        <td>
+                                            <div class="driver-profile">
+                                                <div class="driver-avatar">
+                                                    <?php echo strtoupper(substr($full_name, 0, 1)); ?>
+                                                </div>
+                                                <div class="driver-info">
+                                                    <p class="driver-name"><?php echo $full_name; ?></p>
+                                                    <p class="driver-details"><?php echo $email; ?></p>
+                                                    <p class="driver-details"><?php echo $phone; ?></p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="license-info">
+                                                <p class="license-class">Class A</p>
+                                                <p class="license-number">LIC-<?php echo $id; ?></p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-active">Active</span>
+                                        </td>
+                                        <td>
+                                            <p class="assignment-text"><?php echo $life_time; ?> vehicle(s)</p>
+                                        </td>
+                                        <td class="actions-col">
+                                            <div class="actions-cell">
+                                                <button class="btn-action btn-edit" onclick="openEditDriverModal(<?php echo $id; ?>)">
+                                                    <span class="material-symbols-outlined">edit</span>
+                                                </button>
+                                                <a href="../../controllers/chauffeurControler.php?deleteDriver=<?php echo $id; ?>" 
+                                                   class="btn-action btn-delete" 
+                                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce chauffeur ?');">
+                                                    <span class="material-symbols-outlined">delete</span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        }
+                                    } else {
+                                    ?>
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 2rem;">
+                                            <p>Aucun chauffeur trouvé.</p>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- TABLE FOOTER -->
                         <div class="table-footer">
-                            <p class="footer-text">Showing <span class="current-page">1</span> to <span class="items-per-page">5</span> of <span class="total-items">42</span> results</p>
-                            <div class="pagination">
-                                <button class="pagination-btn prev-btn">
-                                    <span class="material-symbols-outlined">chevron_left</span>
-                                </button>
-                                <div class="page-numbers" id="pageNumbers">
-                                    <!-- Page numbers will be populated by JavaScript -->
-                                </div>
-                                <button class="pagination-btn next-btn">
-                                    <span class="material-symbols-outlined">chevron_right</span>
-                                </button>
-                            </div>
+                            <?php
+                            mysqli_data_seek($drivers, 0);
+                            $total_drivers = mysqli_num_rows($drivers);
+                            ?>
+                            <p class="footer-text">Total: <span class="total-items"><?php echo $total_drivers; ?></span> chauffeur(s)</p>
                         </div>
                     </div>
                 </div>
@@ -210,10 +274,11 @@
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
-            <form id="driverForm" onsubmit="handleSaveDriver(event)">
+            <form id="driverForm" action="../../controllers/chauffeurControler.php" method="POST">
+                <input type="hidden" name="ajouterDriver" value="1"/>
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" id="driverName" required/>
+                    <input type="text" id="driverName" name="full_name" required/>
                 </div>
 
                 <div class="form-row">
@@ -223,7 +288,18 @@
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="tel" id="driverPhone" required/>
+                        <input type="tel" id="driverPhone" name="phone_number" required/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required/>
                     </div>
                 </div>
 
@@ -256,6 +332,17 @@
                             <option value="on-leave">On Leave</option>
                             <option value="suspended">Suspended</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Life Time Vehicles</label>
+                        <input type="number" name="life_time_vehicles" value="0"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Total KMs</label>
+                        <input type="number" name="total_kms" value="0"/>
                     </div>
                 </div>
 

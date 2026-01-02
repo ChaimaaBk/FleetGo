@@ -1,3 +1,12 @@
+<?php
+// Démarrer la session si nécessaire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Inclure le controller pour récupérer les données
+require_once __DIR__ . '/../../controllers/vehiculeController.php';
+?>
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>
@@ -175,15 +184,65 @@
                             </tr>
                         </thead>
                         <tbody id="table-body">
-                            <!-- Rows will be populated by JavaScript -->
+                            <?php
+                            if ($vehicules && mysqli_num_rows($vehicules) > 0) {
+                                while ($vehicule = mysqli_fetch_assoc($vehicules)) {
+                                    $id = htmlspecialchars($vehicule['id']);
+                                    $brand = htmlspecialchars($vehicule['brand'] ?? '');
+                                    $model = htmlspecialchars($vehicule['model'] ?? '');
+                                    $status = htmlspecialchars($vehicule['status'] ?? 'active');
+                                    $booked_by = htmlspecialchars($vehicule['booked_by'] ?? 'N/A');
+                                    $is_active = $vehicule['is_active'] ?? 0;
+                            ?>
+                            <tr>
+                                <td><input type="checkbox"/></td>
+                                <td>
+                                    <div class="vehicle-info-cell">
+                                        <strong><?php echo $brand . ' ' . $model; ?></strong>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-<?php echo strtolower($status); ?>">
+                                        <?php echo ucfirst($status); ?>
+                                    </span>
+                                </td>
+                                <td class="mono"><?php echo $id; ?></td>
+                                <td><?php echo $booked_by; ?></td>
+                                <td>-</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-action btn-edit" onclick="openEditModal(<?php echo $id; ?>)">
+                                            <span class="material-symbols-outlined">edit</span>
+                                        </button>
+                                        <a href="../../controllers/vehiculeController.php?deleteVehicule=<?php echo $id; ?>" 
+                                           class="btn-action btn-delete" 
+                                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                                }
+                            } else {
+                            ?>
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 2rem;">
+                                    <p>Aucun véhicule trouvé.</p>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                     <div class="table-footer">
-                        <span>Showing <span class="font-medium">1-5</span> of <span class="font-medium">142</span> vehicles</span>
-                        <div class="pagination">
-                            <button class="btn-pagination" disabled>Previous</button>
-                            <button class="btn-pagination">Next</button>
-                        </div>
+                        <?php
+                        // Réinitialiser le pointeur du résultat pour compter
+                        mysqli_data_seek($vehicules, 0);
+                        $total_count = mysqli_num_rows($vehicules);
+                        ?>
+                        <span>Total: <span class="font-medium"><?php echo $total_count; ?></span> véhicule(s)</span>
                     </div>
                 </div>
             </div>
@@ -199,10 +258,11 @@
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
-                <form id="vehicleForm" onsubmit="handleSaveVehicle(event)">
+                <form id="vehicleForm" action="../../controllers/vehiculeController.php" method="POST">
+                    <input type="hidden" name="ajouterVehicule" value="1"/>
                     <div class="form-group">
-                        <label for="vehicleName">Vehicle Name</label>
-                        <input type="text" id="vehicleName" required/>
+                        <label for="vehicleName">Vehicle Name (Brand)</label>
+                        <input type="text" id="vehicleName" name="brand" required/>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -210,8 +270,8 @@
                             <input type="number" id="vehicleYear" required/>
                         </div>
                         <div class="form-group">
-                            <label for="vehicleType">Type</label>
-                            <input type="text" id="vehicleType" required/>
+                            <label for="vehicleType">Type/Model</label>
+                            <input type="text" id="vehicleType" name="model" required/>
                         </div>
                     </div>
                     <div class="form-row">
@@ -225,8 +285,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="vehicleDriver">Driver</label>
-                        <input type="text" id="vehicleDriver"/>
+                        <label for="vehicleDriver">Driver ID (booked_by)</label>
+                        <input type="text" id="vehicleDriver" name="booked_by"/>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -235,13 +295,14 @@
                         </div>
                         <div class="form-group">
                             <label for="vehicleStatus">Status</label>
-                            <select id="vehicleStatus" required>
+                            <select id="vehicleStatus" name="status" required>
                                 <option value="active">Active</option>
                                 <option value="maintenance">Maintenance</option>
                                 <option value="out-of-service">Out of Service</option>
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" name="is_active" value="1"/>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary-form" onclick="closeVehicleModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">Save Vehicle</button>
@@ -250,21 +311,51 @@
             </div>
         </div>
 
-        <!-- MODAL DELETE CONFIRMATION -->
-        <div id="deleteModal" class="modal hidden">
+        <!-- MODAL EDIT VEHICLE -->
+        <div id="editVehicleModal" class="modal hidden">
             <div class="modal-overlay"></div>
-            <div class="modal-content delete-modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Delete Vehicle</h3>
-                    <button class="btn-close" onclick="closeDeleteModal()">
+                    <h3>Edit Vehicle</h3>
+                    <button class="btn-close" onclick="closeEditModal()">
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
-                <p>Are you sure you want to delete this vehicle? This action cannot be undone.</p>
-                <div class="form-actions">
-                    <button class="btn btn-secondary-form" onclick="closeDeleteModal()">Cancel</button>
-                    <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
-                </div>
+                <form id="editVehicleForm" action="../../controllers/vehiculeController.php" method="POST">
+                    <input type="hidden" name="modifierVehicule" value="1"/>
+                    <input type="hidden" name="id" id="editVehicleId"/>
+                    <div class="form-group">
+                        <label for="editVehicleBrand">Brand</label>
+                        <input type="text" id="editVehicleBrand" name="brand" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleModel">Model</label>
+                        <input type="text" id="editVehicleModel" name="model" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleBookedBy">Driver ID (booked_by)</label>
+                        <input type="text" id="editVehicleBookedBy" name="booked_by"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleStatus">Status</label>
+                        <select id="editVehicleStatus" name="status" required>
+                            <option value="active">Active</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="out-of-service">Out of Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editVehicleIsActive">Is Active</label>
+                        <select id="editVehicleIsActive" name="is_active" required>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary-form" onclick="closeEditModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update Vehicle</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>

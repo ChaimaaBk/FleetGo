@@ -1,6 +1,8 @@
 <?php
-// Démarrer la session
-session_start();
+// Démarrer la session si nécessaire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Inclure le modèle utilisateur
 require_once __DIR__ . '/../models/user.php';

@@ -79,12 +79,12 @@
                     <p class="login-subtitle">Sign in to access your fleet dashboard</p>
                 </div>
 
-                <form id="loginForm">
+                <form id="loginForm" action="../../controllers/authController.php" method="POST">
                     <div class="form-group">
                         <label class="form-label">Email Address</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-envelope input-icon"></i>
-                            <input type="email" class="form-input" id="email" placeholder="user@fleetGo.com" required>
+                            <input type="email" class="form-input" id="email" name="email" placeholder="user@fleetGo.com" required>
                         </div>
                     </div>
 
@@ -92,7 +92,7 @@
                         <label class="form-label">Password</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-lock input-icon"></i>
-                            <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                            <input type="password" class="form-input" id="password" name="password" placeholder="••••••••" required>
                             <button type="button" class="toggle-password" id="togglePassword">
                                 <svg class="eye-icon" id="eyeIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>

@@ -54,5 +54,7 @@ if(isset($_POST['modifierDriver'])){
 // ===========================
 // LISTE DRIVER (pour afficher dans views)
 // ===========================
-$drivers = listeDriver($conn);
+if (!isset($drivers)) {
+    $drivers = listeDriver($conn);
+}
 ?>
