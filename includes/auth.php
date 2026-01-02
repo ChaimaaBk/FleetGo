@@ -1,0 +1,8 @@
+<?php
+// Vérification de session
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
