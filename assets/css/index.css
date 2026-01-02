@@ -1,0 +1,430 @@
+/*-------Creation des variables--------*/
+:root{
+    --primary : #137fec;
+    --light: #f6f7f8;
+    --font: "Inter", sans-serif;
+    --bg-color: #f8fafc;
+    --text-dark: #0f172a;
+    --extra-light: #475569;
+    --primary-blue: #1a73e8;
+    --grey-500: #64748b;
+    --grey-700: #334155;
+}
+
+/*-------Body style------*/
+body{
+    font-family: var(--font);
+    margin: 0%;
+    background-color: var(--bg-color);
+    color: var(--color);
+}
+
+/*----------Btn style---------*/
+button{
+    transition: background-color 0.3s ease;
+}
+button:hover{
+    background-color: #1557b0;
+}
+
+/*----------Navbar style---------*/
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2%;
+}
+
+/*----------Logo style---------*/
+.logo span{
+    gap: 0.2rem;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+.logo i{
+    color: var(--light);
+    background-color: var(--primary);
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+}
+#go{
+    color: var(--primary);
+}
+
+/*----------Navbar list style---------*/
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+nav ul li a , button a{
+    text-decoration: none;
+}
+nav ul li a{
+    color: var(--extra-light);
+    font-size: 0.9rem;
+}
+
+/*----------Login style---------*/
+.login a strong{
+    color: var(--light);
+}
+.login{
+    background-color: var(--primary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0.3rem 0.5rem rgba(26, 115, 232, 0.2);
+}
+
+/*----------Header style---------*/
+.contenue {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 80vh;
+    padding: 0% 5%;
+}
+
+.sous-contenue {
+    max-width: 40rem;
+}
+
+.sous-contenue h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    text-shadow: 
+        0.15rem 0.3rem 0.4rem rgba(137, 136, 136, 0.3),
+        0 0 0.8rem rgba(156, 198, 254, 0.35);
+}
+
+.sous-contenue h1 span {
+    color: var(--primary);
+}
+
+.sous-contenue p {
+    font-size: 1.125rem;
+    color: var(--extra-light);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/*----------Header Btns style---------*/
+.dashbord-btns {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0.3rem 0.5rem rgba(26, 115, 232, 0.2);
+}
+.btn-primary a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: var(--text-dark);
+    padding: 0.3rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 0.09rem solid #e2e8f0;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-secondary:hover{
+    color: var(--light);
+}
+
+/*----------Avatars style---------*/
+#avatar1 , #avatar2 , #avatar3 {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 0.13rem solid white;
+    background-size: cover;
+    background-color: #e2e8f0;
+    background-position: center;
+    margin-left: -0.5rem;
+}
+#avatar1 {
+    margin-left: 0;
+}
+.trusted{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.avatar-group{
+    display: flex;
+    margin-right: 0.5rem;
+}
+.trusted-text {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-family: "Inter", sans-serif;
+}
+
+/*----------Header img style---------*/
+.image-section img{
+    width: 30rem;
+    height: 28rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1rem;
+    align-self: center;
+    box-shadow: 
+        0 1.25rem 3.2rem rgba(0, 0, 0, 0.1),
+        0 1.5rem 3rem rgba(26, 115, 232, 0.15);
+}
+header{
+    padding-bottom: 3rem;
+}
+
+/*----------Partners section style---------*/
+.partners-section {
+    border-top: 0.07rem solid #f1f5f9;
+    border-bottom: 0.07rem solid #f1f5f9;
+    background-color: #ffffff;
+    padding: 2.5rem 0;
+}
+
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.partners-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(177, 177, 177);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+}
+
+.partners-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem 3rem; /* gap-x gap-y */
+    opacity: 0.4;
+    filter: grayscale(100%);
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+.partners-grid:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+.partner-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.03rem;
+    font-weight: 700;
+    color: var(--grey-700);
+}
+.partner-item i{
+    color: var(--grey-500);
+}
+
+/*----------Capabilities style---------*/
+.capabilities{
+    padding: 0% 5%;
+    margin: 3rem 0%;
+}
+.cap-title{
+    max-width: 50rem;
+}
+.cap-title h1{
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    text-shadow: 
+        0.15rem 0.3rem 0.4rem rgba(137, 136, 136, 0.3),
+        0 0 0.8rem rgba(156, 198, 254, 0.35);
+}
+.cap-title p{
+    font-size: 1.1rem;
+    color: var(--grey-500);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/*----------Capabalities cards style---------*/
+.cap-cards{
+    display: flex;
+    gap: 2rem;
+    width: 70rem;
+    margin: 2rem 0%;
+}
+.card:hover{
+    transform: scale(1.01);
+}
+.card{
+    background-color: white;
+    color: var(--text-dark);
+    padding: 0.3rem 1.5rem;
+    border-radius: 1.5rem;
+    border: 0.09rem solid #e2e8f0;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2rem;
+    box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.03);
+}
+.card-icon i{
+    color: var(--primary);
+    background-color: rgba(197, 240, 254, 0.79);
+    padding: 0.4rem;
+    font-size: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.title-card{
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 1rem 0rem;
+}
+.p-card{
+    font-size: 1rem;
+    color: var(--grey-500);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 100;
+}
+.img-card img{
+    width: 18rem;
+    height: 10rem;
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+/*----------Gallery section style---------*/
+.gallery-section {
+    padding: 4rem 5%;
+    background-color: white;
+}
+.gallery-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    grid-template-areas: 
+        "camion management moteur"
+        "camion analyses analyses";
+    height: 25rem;
+}
+.grid-item {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
+}
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.large-card { 
+    grid-area: camion; 
+}
+.small-card:nth-child(2) { 
+    grid-area: management; 
+}
+.small-card:nth-child(3) { 
+    grid-area: moteur; 
+}
+.medium-card { 
+    grid-area: analyses; 
+}
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 2rem;
+    color: white;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    width: 100%;
+}
+.card-overlay span {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+.card-overlay h3 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0 0;
+    font-weight: 700;
+}
+
+
+hr{
+    height: 0.1rem;
+    background-color: #d4d4d4;
+    border: none;
+    margin-bottom: 0%;
+}
+
+/*----------Footer style---------*/
+footer{
+    background-color: white;
+    padding: 3rem 5%;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.foot-list ul{
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+.foot-list ul li a{
+    text-decoration: none;
+    color: var(--grey-500);
+    font-size: 0.9rem;
+}
+.foot-list ul li a:hover{
+    color: #0f172a;
+}
+.foot-icon{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.foot-icon a{
+    text-decoration: none;
+}
+.foot-icon a i {
+    color: var(--grey-500);
+    background-color: #d9dde49b;
+    padding: 0.6rem;
+    border-radius: 1rem;
+}
+.p-footer{
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--grey-500);
+}
