@@ -1,6 +1,6 @@
 <?php
 include '../config/connexion.php';
-include '../models/vehicules.php';
+include '../models/vehicule.php';
 
 // AJOUTER VEHICULE
 if(isset($_POST['ajouterVehicule'])){
@@ -11,7 +11,7 @@ if(isset($_POST['ajouterVehicule'])){
     $status = $_POST['status'];
 
     if(ajouterVehicule($conn, $brand, $model, $is_active, $booked_by, $status)){
-        header("Location: ../views/vehicules_list.php?success=1");
+        header("Location: ../views/Admin/VehiclesManagement.php?success=1");
     }else{
         echo "Erreur lors de l'ajout du véhicule";
     }
@@ -21,7 +21,7 @@ if(isset($_POST['ajouterVehicule'])){
 if(isset($_GET['deleteVehicule'])){
     $id = $_GET['deleteVehicule'];
     if(supprimerVehicule($conn, $id)){
-        header("Location: ../views/vehicules_list.php?deleted=1");
+        header("Location: ../views/Admin/VehiclesManagement.php?deleted=1");
     }else{
         echo "Erreur lors de la suppression";
     }
@@ -37,7 +37,7 @@ if(isset($_POST['modifierVehicule'])){
     $status = $_POST['status'];
 
     if(modifierVehicule($conn, $id, $brand, $model, $is_active, $booked_by, $status)){
-        header("Location: ../views/vehicules_list.php?updated=1");
+        header("Location: ../views/Admin/VehiclesManagement.php?updated=1");
     }else{
         echo "Erreur lors de la modification";
     }

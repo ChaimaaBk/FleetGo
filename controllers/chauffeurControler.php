@@ -1,6 +1,6 @@
 <?php
 include '../config/connexion.php';
-include '../models/driver.php';
+include '../models/chauffeur.php';
 
 // ===========================
 // AJOUTER DRIVER
@@ -14,7 +14,7 @@ if(isset($_POST['ajouterDriver'])){
     $total_kms = $_POST['total_kms'];
 
     if(ajouterDriver($conn, $full_name, $email, $password, $phone_number, $life_time_vehicles, $total_kms)){
-        header("Location: ../views/driver_list.php?success=1");
+        header("Location: ../views/Admin/drivers.php?success=1");
     }else{
         echo "Erreur lors de l'ajout du driver";
     }
@@ -26,7 +26,7 @@ if(isset($_POST['ajouterDriver'])){
 if(isset($_GET['deleteDriver'])){
     $id = $_GET['deleteDriver'];
     if(supprimerDriver($conn, $id)){
-        header("Location: ../views/driver_list.php?deleted=1");
+        header("Location: ../views/Admin/drivers.php?deleted=1");
     }else{
         echo "Erreur lors de la suppression";
     }
@@ -45,7 +45,7 @@ if(isset($_POST['modifierDriver'])){
     $total_kms = $_POST['total_kms'];
 
     if(modifierDriver($conn, $id, $full_name, $email, $password, $phone_number, $life_time_vehicles, $total_kms)){
-        header("Location: ../views/driver_list.php?updated=1");
+        header("Location: ../views/Admin/drivers.php?updated=1");
     }else{
         echo "Erreur lors de la modification";
     }

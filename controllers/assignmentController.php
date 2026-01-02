@@ -10,7 +10,7 @@ if(isset($_POST['ajouterAssignment'])){
     $status = $_POST['status'];
 
     if(ajouterAssignment($conn, $id_driver, $start_date, $end_date, $status)){
-        header("Location: ../views/assignment_list.php?success=1");
+        header("Location: ../views/Admin/assignVehicle.php?success=1");
     }else{
         echo "Erreur lors de l'ajout";
     }
@@ -20,7 +20,7 @@ if(isset($_POST['ajouterAssignment'])){
 if(isset($_GET['deleteAssignment'])){
     $id = $_GET['deleteAssignment'];
     if(supprimerAssignment($conn, $id)){
-        header("Location: ../views/assignment_list.php?deleted=1");
+        header("Location: ../views/Admin/assignVehicle.php?deleted=1");
     }else{
         echo "Erreur lors de la suppression";
     }
@@ -35,7 +35,7 @@ if(isset($_POST['modifierAssignment'])){
     $status = $_POST['status'];
 
     if(modifierAssignment($conn, $id, $id_driver, $start_date, $end_date, $status)){
-        header("Location: ../views/assignment_list.php?updated=1");
+        header("Location: ../views/Admin/assignVehicle.php?updated=1");
     }else{
         echo "Erreur lors de la modification";
     }

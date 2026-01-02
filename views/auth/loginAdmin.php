@@ -89,7 +89,7 @@
                         
                     </div>
 
-                    <button type="submit" class="submit-btn"><a href="dashbord.php">Sign In</a></button>
+                    <button type="submit" class="submit-btn"><a href="../Admin/dashbord.php">Sign In</a></button>
 
                     <div class="divider">OR</div>
 

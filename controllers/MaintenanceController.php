@@ -9,7 +9,7 @@ if(isset($_POST['ajouterMaintenance'])){
     $maintenance_date = $_POST['maintenance_date'];
 
     if(ajouterMaintenance($conn, $vehicle_id, $description, $maintenance_date)){
-        header("Location: ../views/maintenance_list.php?success=1");
+        header("Location: ../views/users/maintenance.php?success=1");
     }else{
         echo "Erreur lors de l'ajout";
     }
@@ -19,7 +19,7 @@ if(isset($_POST['ajouterMaintenance'])){
 if(isset($_GET['deleteMaintenance'])){
     $id = $_GET['deleteMaintenance'];
     if(supprimerMaintenance($conn, $id)){
-        header("Location: ../views/maintenance_list.php?deleted=1");
+        header("Location: ../views/users/maintenance.php?deleted=1");
     }else{
         echo "Erreur lors de la suppression";
     }
@@ -33,7 +33,7 @@ if(isset($_POST['modifierMaintenance'])){
     $maintenance_date = $_POST['maintenance_date'];
 
     if(modifierMaintenance($conn, $id, $vehicle_id, $description, $maintenance_date)){
-        header("Location: ../views/maintenance_list.php?updated=1");
+        header("Location: ../views/users/maintenance.php?updated=1");
     }else{
         echo "Erreur lors de la modification";
     }
