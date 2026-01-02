@@ -1,96 +1,48 @@
 <?php
-session_start();
-include 'config/connexion.php';
-include 'includes/auth.php';
+include '../config/connexion.php';
+include '../models/vehicule.php';
 
-$message = "";
-$message_type = "";
+// AJOUTER VEHICULE
+if(isset($_POST['ajouterVehicule'])){
+    $brand = $_POST['brand'];
+    $model = $_POST['model'];
+    $is_active = $_POST['is_active'];
+    $booked_by = $_POST['booked_by'];
+    $status = $_POST['status'];
 
-/* =======================
-   AJOUTER VEHICULE
-======================= */
-if (isset($_POST['ajouter'])) {
-    $imm    = $_POST['imm'];
-    $marque = $_POST['marque'];
-    $modele = $_POST['modele'];
-    $annee  = $_POST['annee'];
-    $etat   = $_POST['etat'];
-
-    $sql = "INSERT INTO vehicule (immatriculation, marque, modele, annee, etat)
-            VALUES ('$imm', '$marque', '$modele', '$annee', '$etat')";
-
-    if (mysqli_query($conn, $sql)) {
-        $message = "Véhicule ajouté avec succès";
-        $message_type = "success";
-    } else {
-        $message = "Erreur lors de l'ajout";
-        $message_type = "error";
+    if(ajouterVehicule($conn, $brand, $model, $is_active, $booked_by, $status)){
+        header("Location: ../views/Admin/VehiclesManagement.php?success=1");
+    }else{
+        echo "Erreur lors de l'ajout du véhicule";
     }
 }
 
-/* =======================
-   MODIFIER VEHICULE
-======================= */
-if (isset($_POST['modifier'])) {
-    $id     = $_POST['id'];
-    $imm    = $_POST['imm'];
-    $marque = $_POST['marque'];
-    $modele = $_POST['modele'];
-    $annee  = $_POST['annee'];
-    $etat   = $_POST['etat'];
-
-    $sql = "UPDATE vehicule SET
-            immatriculation='$imm',
-            marque='$marque',
-            modele='$modele',
-            annee='$annee',
-            etat='$etat'
-            WHERE id_vehicule=$id";
-
-    if (mysqli_query($conn, $sql)) {
-        $message = "Véhicule modifié avec succès";
-        $message_type = "success";
-    } else {
-        $message = "Erreur lors de la modification";
-        $message_type = "error";
+// SUPPRIMER VEHICULE
+if(isset($_GET['deleteVehicule'])){
+    $id = $_GET['deleteVehicule'];
+    if(supprimerVehicule($conn, $id)){
+        header("Location: ../views/Admin/VehiclesManagement.php?deleted=1");
+    }else{
+        echo "Erreur lors de la suppression";
     }
 }
 
-/* =======================
-   SUPPRIMER VEHICULE (POST)
-======================= */
-if (isset($_POST['supprimer'])) {
+// MODIFIER VEHICULE
+if(isset($_POST['modifierVehicule'])){
     $id = $_POST['id'];
+    $brand = $_POST['brand'];
+    $model = $_POST['model'];
+    $is_active = $_POST['is_active'];
+    $booked_by = $_POST['booked_by'];
+    $status = $_POST['status'];
 
-    $sql = "DELETE FROM vehicule WHERE id_vehicule=$id";
-
-    if (mysqli_query($conn, $sql)) {
-        $message = "Véhicule supprimé avec succès";
-        $message_type = "success";
-    } else {
-        $message = "Erreur lors de la suppression";
-        $message_type = "error";
+    if(modifierVehicule($conn, $id, $brand, $model, $is_active, $booked_by, $status)){
+        header("Location: ../views/Admin/VehiclesManagement.php?updated=1");
+    }else{
+        echo "Erreur lors de la modification";
     }
 }
 
-/* =======================
-   RECUPERER POUR EDIT (POST)
-======================= */
-$vehicule_edit = null;
-if (isset($_POST['editer'])) {
-    $id = $_POST['id'];
-
-    $sql = "SELECT * FROM vehicule WHERE id_vehicule=$id";
-    $res = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($res) > 0) {
-        $vehicule_edit = mysqli_fetch_assoc($res);
-    }
-}
-
-/* =======================
-   LISTE VEHICULES
-======================= */
-$sql = "SELECT * FROM vehicule ORDER BY id_vehicule DESC";
-$liste = mysqli_query($conn, $sql);
+// LISTE VEHICULES
+$vehicules = listeVehicule($conn);
 ?>

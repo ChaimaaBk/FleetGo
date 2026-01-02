@@ -1,69 +1,58 @@
 <?php
-include 'config/connexion.php';
-include 'models/chauffeur.php'; 
-
-session_start();
-include 'includes/auth.php';
-
-$message = "";
-$message_type = "";
+include '../config/connexion.php';
+include '../models/chauffeur.php';
 
 // ===========================
-// AJOUTER CHAUFFEUR
+// AJOUTER DRIVER
 // ===========================
-if (isset($_POST['ajouter'])) {
-    if (ajouterChauffeur($conn, $_POST['nom'], $_POST['prenom'], $_POST['permis'], $_POST['telephone'])) {
-        $message = "Chauffeur ajouté avec succès";
-        $message_type = "success";
-    } else {
-        $message = "Erreur lors de l'ajout";
-        $message_type = "error";
+if(isset($_POST['ajouterDriver'])){
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $phone_number = $_POST['phone_number'];
+    $life_time_vehicles = $_POST['life_time_vehicles'];
+    $total_kms = $_POST['total_kms'];
+
+    if(ajouterDriver($conn, $full_name, $email, $password, $phone_number, $life_time_vehicles, $total_kms)){
+        header("Location: ../views/Admin/drivers.php?success=1");
+    }else{
+        echo "Erreur lors de l'ajout du driver";
     }
 }
 
 // ===========================
-// MODIFIER CHAUFFEUR
+// SUPPRIMER DRIVER
 // ===========================
-if (isset($_POST['modifier'])) {
-    if (modifierChauffeur(
-        $conn,
-        $_POST['id'],
-        $_POST['nom'],
-        $_POST['prenom'],
-        $_POST['permis'],
-        $_POST['telephone']
-    )) {
-        $message = "Chauffeur modifié avec succès";
-        $message_type = "success";
-    } else {
-        $message = "Erreur lors de la modification";
-        $message_type = "error";
+if(isset($_GET['deleteDriver'])){
+    $id = $_GET['deleteDriver'];
+    if(supprimerDriver($conn, $id)){
+        header("Location: ../views/Admin/drivers.php?deleted=1");
+    }else{
+        echo "Erreur lors de la suppression";
     }
 }
 
 // ===========================
-// SUPPRIMER CHAUFFEUR
+// MODIFIER DRIVER
 // ===========================
-if (isset($_GET['supprimer'])) {
-    if (supprimerChauffeur($conn, $_GET['supprimer'])) {
-        $message = "Chauffeur supprimé avec succès";
-        $message_type = "success";
-    } else {
-        $message = "Erreur lors de la suppression";
-        $message_type = "error";
+if(isset($_POST['modifierDriver'])){
+    $id = $_POST['driver_id'];
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $phone_number = $_POST['phone_number'];
+    $life_time_vehicles = $_POST['life_time_vehicles'];
+    $total_kms = $_POST['total_kms'];
+
+    if(modifierDriver($conn, $id, $full_name, $email, $password, $phone_number, $life_time_vehicles, $total_kms)){
+        header("Location: ../views/Admin/drivers.php?updated=1");
+    }else{
+        echo "Erreur lors de la modification";
     }
 }
 
 // ===========================
-// LISTE CHAUFFEURS
+// LISTE DRIVER (pour afficher dans views)
 // ===========================
-$liste = listeChauffeur($conn);
-
-// ===========================
-// CHAUFFEUR À MODIFIER
-// ===========================
-$chauffeur_edit = null;
-if (isset($_GET['editer'])) {
-    $chauffeur_edit = getChauffeurById($conn, $_GET['editer']);
-}
+$drivers = listeDriver($conn);
 ?>

@@ -2,25 +2,21 @@
 // ===========================
 // AJOUTER MAINTENANCE
 // ===========================
-function ajouterMaintenance($conn, $date, $type, $cout, $id_vehicule){
-    $date = mysqli_real_escape_string($conn, $date);
-    $type = mysqli_real_escape_string($conn, $type);
-    $cout = (float)$cout;
-    $id_vehicule = (int)$id_vehicule;
+function ajouterMaintenance($conn, $vehicle_id, $description, $maintenance_date){
+    $vehicle_id = (int)$vehicle_id;
+    $description = mysqli_real_escape_string($conn, $description);
+    $maintenance_date = mysqli_real_escape_string($conn, $maintenance_date);
 
-    $sql = "INSERT INTO maintenance(date, type, cout, id_vehicule)
-            VALUES('$date', '$type', $cout, $id_vehicule)";
+    $sql = "INSERT INTO maintenance(vehicle_id, description, maintenance_date)
+            VALUES($vehicle_id, '$description', '$maintenance_date')";
     return mysqli_query($conn, $sql);
 }
 
 // ===========================
-// LISTE MAINTENANCE
+// LISTE MAINTENANCES
 // ===========================
 function listeMaintenance($conn){
-    $sql = "SELECT m.*, v.immatriculation, v.marque, v.modele
-            FROM maintenance m
-            LEFT JOIN vehicule v ON m.id_vehicule = v.id_vehicule
-            ORDER BY m.date DESC";
+    $sql = "SELECT * FROM maintenance ORDER BY id DESC";
     return mysqli_query($conn, $sql);
 }
 
@@ -29,10 +25,7 @@ function listeMaintenance($conn){
 // ===========================
 function getMaintenanceById($conn, $id){
     $id = (int)$id;
-    $sql = "SELECT m.*, v.immatriculation, v.marque, v.modele
-            FROM maintenance m
-            LEFT JOIN vehicule v ON m.id_vehicule = v.id_vehicule
-            WHERE m.id_maintenance = $id";
+    $sql = "SELECT * FROM maintenance WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_assoc($result);
 }
@@ -42,26 +35,24 @@ function getMaintenanceById($conn, $id){
 // ===========================
 function supprimerMaintenance($conn, $id){
     $id = (int)$id;
-    $sql = "DELETE FROM maintenance WHERE id_maintenance = $id";
+    $sql = "DELETE FROM maintenance WHERE id = $id";
     return mysqli_query($conn, $sql);
 }
 
 // ===========================
 // MODIFIER MAINTENANCE
 // ===========================
-function modifierMaintenance($conn, $id, $date, $type, $cout, $id_vehicule){
+function modifierMaintenance($conn, $id, $vehicle_id, $description, $maintenance_date){
     $id = (int)$id;
-    $date = mysqli_real_escape_string($conn, $date);
-    $type = mysqli_real_escape_string($conn, $type);
-    $cout = (float)$cout;
-    $id_vehicule = (int)$id_vehicule;
+    $vehicle_id = (int)$vehicle_id;
+    $description = mysqli_real_escape_string($conn, $description);
+    $maintenance_date = mysqli_real_escape_string($conn, $maintenance_date);
 
     $sql = "UPDATE maintenance SET
-            date='$date',
-            type='$type',
-            cout=$cout,
-            id_vehicule=$id_vehicule
-            WHERE id_maintenance = $id";
+            vehicle_id=$vehicle_id,
+            description='$description',
+            maintenance_date='$maintenance_date'
+            WHERE id = $id";
     return mysqli_query($conn, $sql);
 }
 ?>

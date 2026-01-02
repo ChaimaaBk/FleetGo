@@ -2,15 +2,13 @@
 // ===========================
 // AJOUTER VEHICULE
 // ===========================
-function ajouterVehicule($conn, $imm, $marque, $modele, $annee, $etat){
-    $imm = mysqli_real_escape_string($conn, $imm);
-    $marque = mysqli_real_escape_string($conn, $marque);
-    $modele = mysqli_real_escape_string($conn, $modele);
-    $annee = mysqli_real_escape_string($conn, $annee);
-    $etat = mysqli_real_escape_string($conn, $etat);
+function ajouterVehicule($conn, $brand, $model, $is_active, $booked_by, $status){
+    $brand = mysqli_real_escape_string($conn, $brand);
+    $model = mysqli_real_escape_string($conn, $model);
+    $status = mysqli_real_escape_string($conn, $status);
 
-    $sql = "INSERT INTO vehicule(immatriculation, marque, modele, annee, etat)
-            VALUES('$imm', '$marque', '$modele', '$annee', '$etat')";
+    $sql = "INSERT INTO vehicules(brand, model, is_active, booked_by, status)
+            VALUES('$brand', '$model', $is_active, $booked_by, '$status')";
     return mysqli_query($conn, $sql);
 }
 
@@ -18,7 +16,7 @@ function ajouterVehicule($conn, $imm, $marque, $modele, $annee, $etat){
 // LISTE VEHICULES
 // ===========================
 function listeVehicule($conn){
-    $sql = "SELECT * FROM vehicule ORDER BY id_vehicule DESC";
+    $sql = "SELECT * FROM vehicules ORDER BY id DESC";
     return mysqli_query($conn, $sql);
 }
 
@@ -27,7 +25,7 @@ function listeVehicule($conn){
 // ===========================
 function getVehiculeById($conn, $id){
     $id = (int)$id;
-    $sql = "SELECT * FROM vehicule WHERE id_vehicule = $id";
+    $sql = "SELECT * FROM vehicules WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_assoc($result);
 }
@@ -37,28 +35,26 @@ function getVehiculeById($conn, $id){
 // ===========================
 function supprimerVehicule($conn, $id){
     $id = (int)$id;
-    $sql = "DELETE FROM vehicule WHERE id_vehicule = $id";
+    $sql = "DELETE FROM vehicules WHERE id = $id";
     return mysqli_query($conn, $sql);
 }
 
 // ===========================
 // MODIFIER VEHICULE
 // ===========================
-function modifierVehicule($conn, $id, $imm, $marque, $modele, $annee, $etat){
+function modifierVehicule($conn, $id, $brand, $model, $is_active, $booked_by, $status){
     $id = (int)$id;
-    $imm = mysqli_real_escape_string($conn, $imm);
-    $marque = mysqli_real_escape_string($conn, $marque);
-    $modele = mysqli_real_escape_string($conn, $modele);
-    $annee = mysqli_real_escape_string($conn, $annee);
-    $etat = mysqli_real_escape_string($conn, $etat);
+    $brand = mysqli_real_escape_string($conn, $brand);
+    $model = mysqli_real_escape_string($conn, $model);
+    $status = mysqli_real_escape_string($conn, $status);
 
-    $sql = "UPDATE vehicule SET
-            immatriculation='$imm',
-            marque='$marque',
-            modele='$modele',
-            annee='$annee',
-            etat='$etat'
-            WHERE id_vehicule = $id";
+    $sql = "UPDATE vehicules SET
+            brand='$brand',
+            model='$model',
+            is_active=$is_active,
+            booked_by=$booked_by,
+            status='$status'
+            WHERE id = $id";
     return mysqli_query($conn, $sql);
 }
 ?>

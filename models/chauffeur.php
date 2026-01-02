@@ -1,61 +1,63 @@
 <?php
 // ===========================
-// AJOUTER CHAUFFEUR
+// AJOUTER DRIVER
 // ===========================
-function ajouterChauffeur($conn, $nom, $prenom, $permis, $telephone){
-    $nom = mysqli_real_escape_string($conn, $nom);
-    $prenom = mysqli_real_escape_string($conn, $prenom);
-    $permis = mysqli_real_escape_string($conn, $permis);
-    $telephone = mysqli_real_escape_string($conn, $telephone);
+function ajouterDriver($conn, $full_name, $email, $password, $phone_number, $life_time_vehicles, $total_kms){
+    $full_name = mysqli_real_escape_string($conn, $full_name);
+    $email = mysqli_real_escape_string($conn, $email);
+    $password = mysqli_real_escape_string($conn, $password);
+    $phone_number = mysqli_real_escape_string($conn, $phone_number);
 
-    $sql = "INSERT INTO chauffeur(nom, prenom, permis, telephone)
-            VALUES('$nom', '$prenom', '$permis', '$telephone')";
+    $sql = "INSERT INTO driver(full_name, email, password, phone_number, life_time_vihecules, total_kms)
+            VALUES('$full_name', '$email', '$password', '$phone_number', $life_time_vehicles, $total_kms)";
     return mysqli_query($conn, $sql);
 }
 
 // ===========================
-// LISTE CHAUFFEURS
+// LISTE DRIVERS
 // ===========================
-function listeChauffeur($conn){
-    $sql = "SELECT * FROM chauffeur ORDER BY id_chauffeur DESC";
+function listeDriver($conn){
+    $sql = "SELECT * FROM driver ORDER BY driver_id DESC";
     return mysqli_query($conn, $sql);
 }
 
 // ===========================
-// GET CHAUFFEUR BY ID
+// GET DRIVER BY ID
 // ===========================
-function getChauffeurById($conn, $id){
+function getDriverById($conn, $id){
     $id = (int)$id;
-    $sql = "SELECT * FROM chauffeur WHERE id_chauffeur = $id";
+    $sql = "SELECT * FROM driver WHERE driver_id = $id";
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_assoc($result);
 }
 
 // ===========================
-// SUPPRIMER CHAUFFEUR
+// SUPPRIMER DRIVER
 // ===========================
-function supprimerChauffeur($conn, $id){
+function supprimerDriver($conn, $id){
     $id = (int)$id;
-    $sql = "DELETE FROM chauffeur WHERE id_chauffeur = $id";
+    $sql = "DELETE FROM driver WHERE driver_id = $id";
     return mysqli_query($conn, $sql);
 }
 
 // ===========================
-// MODIFIER CHAUFFEUR
+// MODIFIER DRIVER
 // ===========================
-function modifierChauffeur($conn, $id, $nom, $prenom, $permis, $telephone){
+function modifierDriver($conn, $id, $full_name, $email, $password, $phone_number, $life_time_vehicles, $total_kms){
     $id = (int)$id;
-    $nom = mysqli_real_escape_string($conn, $nom);
-    $prenom = mysqli_real_escape_string($conn, $prenom);
-    $permis = mysqli_real_escape_string($conn, $permis);
-    $telephone = mysqli_real_escape_string($conn, $telephone);
+    $full_name = mysqli_real_escape_string($conn, $full_name);
+    $email = mysqli_real_escape_string($conn, $email);
+    $password = mysqli_real_escape_string($conn, $password);
+    $phone_number = mysqli_real_escape_string($conn, $phone_number);
 
-    $sql = "UPDATE chauffeur SET
-            nom='$nom',
-            prenom='$prenom',
-            permis='$permis',
-            telephone='$telephone'
-            WHERE id_chauffeur = $id";
+    $sql = "UPDATE driver SET
+            full_name='$full_name',
+            email='$email',
+            password='$password',
+            phone_number='$phone_number',
+            life_time_vihecules=$life_time_vehicles,
+            total_kms=$total_kms
+            WHERE driver_id = $id";
     return mysqli_query($conn, $sql);
 }
 ?>
