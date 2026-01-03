@@ -45,5 +45,9 @@ function verifierLogin($email, $mot_de_passe) {
     // Si les identifiants sont incorrects
     return false;
 }
+
+
+
+
 ?>
 

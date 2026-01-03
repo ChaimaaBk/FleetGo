@@ -59,7 +59,7 @@
                     <p class="login-subtitle">Please enter your credentials to access the dashboard</p>
                 </div>
 
-                <form id="loginForm" action="../../controllers/authController.php" method="POST">
+                <form id="loginForm" method="post" action="../../controllers/authController.php" >
                     <div class="form-group">
                         <label class="form-label">Email Address</label>
                         <div class="input-wrapper">
