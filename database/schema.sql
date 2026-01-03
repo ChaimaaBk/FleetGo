@@ -12,6 +12,7 @@ CREATE TABLE driver (
 ----------  admin table------------
 
 CREATE TABLE admin(
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
     full_name varchar(20) NOT NULL,
     email VARCHAR(30) NOT NULL, 
     username VARCHAR(30) NOT NULL,
