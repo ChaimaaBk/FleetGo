@@ -42,5 +42,7 @@ if(isset($_POST['modifierAssignment'])){
 }
 
 // LISTE ASSIGNMENTS
-$assignments = listeAssignment($conn);
+if (!isset($assignments)) {
+    $assignments = listeAssignment($conn);
+}
 ?>

@@ -1,3 +1,12 @@
+<?php
+// Démarrer la session si nécessaire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Inclure le controller pour récupérer les données
+require_once __DIR__ . '/../../controllers/MaintenanceController.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,9 +56,9 @@
                         <h1>Vehicle Maintenance</h1>
                         <p>Manage health and service history for your assigned vehicle.</p>
                     </div>
-                    <button class="btn-primary" id="reportIssueBtn">
+                    <button class="btn-primary" id="reportIssueBtn" onclick="document.getElementById('addMaintenanceModal').classList.remove('hidden');">
                         <span class="material-symbols-outlined">report_problem</span>
-                        Report Issue
+                        Add Maintenance
                     </button>
                 </div>
 
@@ -195,76 +204,40 @@
                                         </tr>
                                     </thead>
                                     <tbody id="historyTableBody">
+                                        <?php
+                                        if ($maintenances && mysqli_num_rows($maintenances) > 0) {
+                                            while ($maintenance = mysqli_fetch_assoc($maintenances)) {
+                                                $id = htmlspecialchars($maintenance['id'] ?? '');
+                                                $vehicle_id = htmlspecialchars($maintenance['vehicle_id'] ?? '');
+                                                $description = htmlspecialchars($maintenance['description'] ?? '');
+                                                $maintenance_date = htmlspecialchars($maintenance['maintenance_date'] ?? '');
+                                        ?>
                                         <tr>
-                                            <td class="mono">Oct 01, 2023</td>
-                                            <td>
-                                                <div class="service-type">
-                                                    <span class="material-symbols-outlined">tire_repair</span>
-                                                    <span>Tire Rotation</span>
-                                                </div>
-                                            </td>
-                                            <td class="mono">42,000 mi</td>
-                                            <td>QuickLane Services</td>
-                                            <td class="text-right">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="mono">Aug 15, 2023</td>
+                                            <td class="mono"><?php echo date('M d, Y', strtotime($maintenance_date)); ?></td>
                                             <td>
                                                 <div class="service-type">
                                                     <span class="material-symbols-outlined">build</span>
-                                                    <span>Routine Inspection</span>
+                                                    <span><?php echo $description; ?></span>
                                                 </div>
                                             </td>
-                                            <td class="mono">38,500 mi</td>
-                                            <td>Fleet HQ Garage</td>
+                                            <td class="mono">Vehicle #<?php echo $vehicle_id; ?></td>
+                                            <td>Fleet Service</td>
                                             <td class="text-right">
                                                 <span class="badge badge-success">Completed</span>
                                             </td>
                                         </tr>
+                                        <?php
+                                            }
+                                        } else {
+                                        ?>
                                         <tr>
-                                            <td class="mono">Jun 02, 2023</td>
-                                            <td>
-                                                <div class="service-type">
-                                                    <span class="material-symbols-outlined">oil_barrel</span>
-                                                    <span>Oil Change</span>
-                                                </div>
-                                            </td>
-                                            <td class="mono">35,120 mi</td>
-                                            <td>Jiffy Lube</td>
-                                            <td class="text-right">
-                                                <span class="badge badge-success">Completed</span>
+                                            <td colspan="5" style="text-align: center; padding: 2rem;">
+                                                <p>Aucune maintenance trouvée.</p>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="mono">Mar 22, 2023</td>
-                                            <td>
-                                                <div class="service-type">
-                                                    <span class="material-symbols-outlined">battery_alert</span>
-                                                    <span>Battery Replacement</span>
-                                                </div>
-                                            </td>
-                                            <td class="mono">32,450 mi</td>
-                                            <td>Fleet HQ Garage</td>
-                                            <td class="text-right">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="mono">Jan 10, 2023</td>
-                                            <td>
-                                                <div class="service-type">
-                                                    <span class="material-symbols-outlined">minor_crash</span>
-                                                    <span>Bumper Repair</span>
-                                                </div>
-                                            </td>
-                                            <td class="mono">30,100 mi</td>
-                                            <td>AutoBody Experts</td>
-                                            <td class="text-right">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -282,6 +255,41 @@
         </main>
     </div>
 
-    <script src="../../assets/js/users/maintenance.js"></script>
+    <!-- Modal: Add Maintenance -->
+    <div id="addMaintenanceModal" class="modal hidden" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+        <div class="modal-overlay" onclick="document.getElementById('addMaintenanceModal').style.display='none';"></div>
+        <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 8px; min-width: 400px;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3>Add Maintenance</h3>
+                <button onclick="document.getElementById('addMaintenanceModal').style.display='none';" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+            </div>
+            <form action="../../controllers/MaintenanceController.php" method="POST">
+                <input type="hidden" name="ajouterMaintenance" value="1"/>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Vehicle ID</label>
+                    <input type="number" name="vehicle_id" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"/>
+                </div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Description</label>
+                    <textarea name="description" rows="4" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                </div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Maintenance Date</label>
+                    <input type="date" name="maintenance_date" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"/>
+                </div>
+                <div class="form-actions" style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" onclick="document.getElementById('addMaintenanceModal').style.display='none';" style="padding: 0.5rem 1rem; background: #ccc; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+                    <button type="submit" style="padding: 0.5rem 1rem; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Maintenance</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // Afficher le modal quand le bouton est cliqué
+    document.getElementById('reportIssueBtn').addEventListener('click', function() {
+        document.getElementById('addMaintenanceModal').style.display = 'block';
+    });
+    </script>
 </body>
 </html>

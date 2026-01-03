@@ -40,5 +40,7 @@ if(isset($_POST['modifierMaintenance'])){
 }
 
 // LISTE MAINTENANCE
-$maintenances = listeMaintenance($conn);
+if (!isset($maintenances)) {
+    $maintenances = listeMaintenance($conn);
+}
 ?>

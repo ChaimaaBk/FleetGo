@@ -43,6 +43,8 @@ if(isset($_POST['modifierVehicule'])){
     }
 }
 
-// LISTE VEHICULES
-$vehicules = listeVehicule($conn);
+// LISTE VEHICULES (défini après les opérations CRUD)
+if (!isset($vehicules)) {
+    $vehicules = listeVehicule($conn);
+}
 ?>

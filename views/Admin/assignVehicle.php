@@ -1,3 +1,12 @@
+<?php
+// Démarrer la session si nécessaire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Inclure le controller pour récupérer les données
+require_once __DIR__ . '/../../controllers/assignmentController.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +95,8 @@
                     <div class="card-header">
                         <h3>New Assignment</h3>
                     </div>
-                    <form id="assignmentForm" class="form-content">
+                    <form id="assignmentForm" class="form-content" action="../../controllers/assignmentController.php" method="POST">
+                        <input type="hidden" name="ajouterAssignment" value="1"/>
                         <!-- Vehicle Select -->
                         <label class="form-group">
                             <span class="label-text">Select Vehicle</span>
@@ -101,7 +111,7 @@
                         <!-- Driver Select -->
                         <label class="form-group">
                             <span class="label-text">Select Driver</span>
-                            <select id="driverSelect" required>
+                            <select id="driverSelect" name="id_driver" required>
                                 <option disabled selected>Search driver name or ID...</option>
                                 <option value="1">John Doe - ID: 459 (Available)</option>
                                 <option value="2">Sarah Smith - ID: 122 (On Leave)</option>
@@ -113,13 +123,23 @@
                         <div class="date-row">
                             <label class="form-group">
                                 <span class="label-text">Start Date</span>
-                                <input type="date" id="startDate" required/>
+                                <input type="date" id="startDate" name="start_date" required/>
                             </label>
                             <label class="form-group">
                                 <span class="label-text">End Date</span>
-                                <input type="date" id="endDate" required/>
+                                <input type="date" id="endDate" name="end_date" required/>
                             </label>
                         </div>
+
+                        <!-- Status -->
+                        <label class="form-group">
+                            <span class="label-text">Status</span>
+                            <select name="status" required>
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </label>
 
                         <!-- Notes -->
                         <label class="form-group">
@@ -173,11 +193,11 @@
 
                     <!-- Pagination -->
                     <div class="table-footer">
-                        <span class="pagination-info">Showing <span class="current">1</span>-<span class="items">4</span> of <span class="total">142</span></span>
-                        <div class="pagination-buttons">
-                            <button class="btn-pagination prev-btn">Previous</button>
-                            <button class="btn-pagination next-btn">Next</button>
-                        </div>
+                        <?php
+                        mysqli_data_seek($assignments, 0);
+                        $total_assignments = mysqli_num_rows($assignments);
+                        ?>
+                        <span class="pagination-info">Total: <span class="total"><?php echo $total_assignments; ?></span> assignation(s)</span>
                     </div>
                 </div>
             </div>
@@ -194,14 +214,28 @@
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
-            <form id="editForm" onsubmit="handleSaveEdit(event)">
+            <form id="editForm" action="../../controllers/assignmentController.php" method="POST">
+                <input type="hidden" name="modifierAssignment" value="1"/>
+                <input type="hidden" name="id" id="editAssignmentId"/>
                 <label class="form-group">
-                    <span class="label-text">End Date</span>
-                    <input type="date" id="editEndDate" required/>
+                    <span class="label-text">Driver ID</span>
+                    <input type="number" id="editIdDriver" name="id_driver" required/>
                 </label>
                 <label class="form-group">
-                    <span class="label-text">Notes</span>
-                    <textarea id="editNotes" rows="3"></textarea>
+                    <span class="label-text">Start Date</span>
+                    <input type="date" id="editStartDate" name="start_date" required/>
+                </label>
+                <label class="form-group">
+                    <span class="label-text">End Date</span>
+                    <input type="date" id="editEndDate" name="end_date" required/>
+                </label>
+                <label class="form-group">
+                    <span class="label-text">Status</span>
+                    <select id="editStatus" name="status" required>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
                 </label>
                 <div class="form-actions">
                     <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancel</button>
@@ -229,6 +263,22 @@
         </div>
     </div>
 
-    <script src="../../assets/js/admin/assignVehicle.js"></script>
+    <script>
+    function openEditAssignmentModal(id) {
+        document.getElementById('editModal').classList.remove('hidden');
+        document.getElementById('editAssignmentId').value = id;
+    }
+    
+    function closeEditModal() {
+        document.getElementById('editModal').classList.add('hidden');
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const editModal = document.getElementById('editModal');
+        if (editModal) {
+            editModal.querySelector('.modal-overlay').addEventListener('click', closeEditModal);
+        }
+    });
+    </script>
 </body>
 </html>
