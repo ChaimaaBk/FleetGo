@@ -6,7 +6,8 @@ CREATE TABLE driver (
     password VARCHAR(20),
     phone_number VARCHAR(20),
     life_time_vihecules INT,
-    total_kms INT
+    total_kms INT,
+    role ENUM("admin")
     
 );
 ----------  admin table------------
@@ -17,7 +18,8 @@ CREATE TABLE admin(
     email VARCHAR(30) NOT NULL, 
     username VARCHAR(30) NOT NULL,
     password VARCHAR(20),
-    phone_number VARCHAR(20)
+    phone_number VARCHAR(20),
+    role ENUM("admin")
     );
 ---------- vehicules table------------
 
